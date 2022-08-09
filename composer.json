@@ -6,7 +6,7 @@
         "email": "bingosoft@bk.ru"
     }],
     "description": "Scripting API implemented in PHP",
-    "keywords": ["php", "scripting"],
+    "keywords": ["php", "scripting", "el", "expression", "juel", "lua"],
     "homepage": "https://github.com/bingo-soft/script",
     "type": "project",
     "config": {
