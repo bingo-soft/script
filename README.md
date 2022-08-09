@@ -17,7 +17,7 @@ composer require bingo-soft/script
 
 # Example 1 (using Juel engine)
 
-```
+```php
 $manager = new ScriptEngineManager();
 $engine = $manager->getEngineByName("juel");
 echo $engine->eval('${1 + 2}'); //prints 3
@@ -25,7 +25,7 @@ echo $engine->eval('${1 + 2}'); //prints 3
 
 # Example 2 (using Juel engine)
 
-```
+```php
 $manager = new ScriptEngineManager();
 $engine = $manager->getEngineByName("juel");
 
@@ -50,7 +50,7 @@ echo $engine->eval('${simple.bar() + simple.foo()}'); //prints 34
 
 # Example 3. Calculate factorial using Lua module
 
-```
+```php
 $manager = new ScriptEngineManager();
 $engine = $manager->getEngineByName("lua");
 $engine->put('a', 5);
