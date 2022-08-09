@@ -1,6 +1,6 @@
 <?php
 
-namespace Script\Core;
+namespace Script;
 
 class SimpleScriptContext implements ScriptContextInterface
 {
@@ -188,7 +188,7 @@ class SimpleScriptContext implements ScriptContextInterface
      * @return BindingsInterface The value of either the  <code>engineScope</code> or <code>globalScope</code> field.
      * @throws IllegalArgumentException if the value of scope is invalid.
      */
-    public function getBindings(int $scope): BindingsInterface
+    public function getBindings(int $scope): ?BindingsInterface
     {
         if ($scope == self::ENGINE_SCOPE) {
             return $this->engineScope;

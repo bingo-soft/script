@@ -1,10 +1,10 @@
 <?php
 
-namespace Script\Core;
+namespace Script;
 
 abstract class AbstractScriptEngine implements ScriptEngineInterface
 {
-/**
+    /**
      * The default <code>ScriptContext</code> of this <code>AbstractScriptEngine</code>.
      */
 
@@ -17,10 +17,12 @@ abstract class AbstractScriptEngine implements ScriptEngineInterface
      * @param n The specified <code>Bindings</code>.
      * @throws NullPointerException if n is null.
      */
-    public function __construct(BindingsInterface $n)
+    public function __construct(BindingsInterface $n = null)
     {
         $this->context = new SimpleScriptContext();
-        $context->setBindings($n, ScriptContextInterface::ENGINE_SCOPE);
+        if ($n !== null) {
+            $this->context->setBindings($n, ScriptContextInterface::ENGINE_SCOPE);
+        }
     }
 
     /**
@@ -56,7 +58,7 @@ abstract class AbstractScriptEngine implements ScriptEngineInterface
      * @throws IllegalArgumentException if the value of scope is
      * invalid for the type the protected <code>context</code> field.
      */
-    public function getBindings(int $scope): BindingsInterface
+    public function getBindings(int $scope): ?BindingsInterface
     {
         if ($scope == ScriptContextInterface::GLOBAL_SCOPE) {
             return $this->context->getBindings(ScriptContextInterface::GLOBAL_SCOPE);
@@ -128,7 +130,7 @@ abstract class AbstractScriptEngine implements ScriptEngineInterface
         return null;
     }
 
-    abstract public function eval(string $script, ?ScriptContextInterface $context = null, ?BindingsInterface $bindings = null);
+    abstract function eval(string $script, $scriptContext = null);
 
     /**
      * Returns a <code>SimpleScriptContext</code>.  The <code>SimpleScriptContext</code>:
@@ -151,7 +153,7 @@ abstract class AbstractScriptEngine implements ScriptEngineInterface
      * @param nn Bindings to use for the <code>ENGINE_SCOPE</code>
      * @return ScriptContextInterface The <code>SimpleScriptContext</code>
      */
-    protected function getScriptContext(BindingsInterface $nn): ScriptContextInterface
+    protected function getScriptContext(BindingsInterface $nn = null): ScriptContextInterface
     {
         $ctxt = new SimpleScriptContext();
         $gs = $this->getBindings(ScriptContextInterface::GLOBAL_SCOPE);

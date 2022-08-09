@@ -1,6 +1,6 @@
 <?php
 
-namespace Script\Core;
+namespace Script;
 
 interface ScriptEngineInterface
 {
@@ -72,7 +72,7 @@ interface ScriptEngineInterface
      * implementations.
      * @throws NullPointerException if either argument is null.
      */
-    public function eval(string $script, ?ScriptContextInterface $context = null, ?BindingsInterface $bindings = null);
+    public function eval(string $script, $contextOrBindings = null);
 
     /**
      * Sets a key/value pair in the state of the ScriptEngine that may either create
@@ -131,7 +131,7 @@ interface ScriptEngineInterface
      * @throws IllegalArgumentException if specified scope is invalid
      *
      */
-    public function getBindings(int $scope): BindingsInterface;
+    public function getBindings(int $scope): ?BindingsInterface;
 
     /**
      * Sets a scope of named values to be used by scripts.  The possible scopes are:

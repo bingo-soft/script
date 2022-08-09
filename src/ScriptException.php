@@ -1,6 +1,6 @@
 <?php
 
-namespace Script\Core;
+namespace Script;
 
 class ScriptException extends \Exception
 {

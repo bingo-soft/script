@@ -5,7 +5,7 @@
         "name": "Bingo-Soft",
         "email": "bingosoft@bk.ru"
     }],
-    "description": "Java Scripting API ported to PHP and script engine implementations",
+    "description": "Scripting API implemented in PHP",
     "keywords": ["php", "scripting"],
     "homepage": "https://github.com/bingo-soft/script",
     "type": "project",
@@ -16,7 +16,9 @@
         }
     },
     "require": {
-        "php": "^7.4 || ^8.0"
+        "php": "^7.4 || ^8.0",
+        "bingo-soft/el": "^1.0",
+        "bingo-soft/juel": "^1.0"
     },
     "require-dev": {
         "doctrine/coding-standard": "*",

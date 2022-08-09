@@ -1,22 +1,29 @@
 <?php
 
-namespace Script\Core;
+namespace Script;
+
+use Script\Engine\Juel\JuelScriptEngineFactory;
 
 class ScriptEngineManager
 {
     private static $DEBUG = false;
+    /** Set of script engine factories discovered. */
+    private $engineSpis = [];
+
+    /** Map of engine name to script engine factory. */
+    private $nameAssociations = [];
+
+    /** Map of script file extension to script engine factory. */
+    private $extensionAssociations = [];
+
+    /** Global bindings associated with script engines created by this manager. */
+    private $globalScope;
 
     /**
      * This constructor loads the implementations of
-     * <code>ScriptEngineFactory</code> visible to the given
-     * <code>ClassLoader</code> using the <a href="../../../technotes/guides/jar/jar.html#Service%20Provider">service provider</a> mechanism.<br><br>
-     * If loader is <code>null</code>, the script engine factories that are
-     * bundled with the platform and that are in the usual extension
-     * directories (installed extensions) are loaded. <br><br>
-     *
-     * @param loader ClassLoader used to discover script engine factories.
+     * <code>ScriptEngineFactory</code>
      */
-    public function __construct()
+    public function __construct(string $engineFolder = null)
     {
         $this->init();
     }
@@ -27,8 +34,16 @@ class ScriptEngineManager
         $this->engineSpis = [];
         $this->nameAssociations = [];
         $this->extensionAssociations = [];
-        $this->mimeTypeAssociations = [];
-        //$this->initEngines();
+        
+        $this->addSpi();        
+    }
+
+    private function addSpi(): void
+    {
+        $factory = new JuelScriptEngineFactory();
+        $this->engineSpis[] = $factory;
+        //register
+        $this->registerEngineName($factory->getEngineName(), $factory);
     }
 
     /**
@@ -235,19 +250,4 @@ class ScriptEngineManager
     {
         $this->extensionAssociations[$extension] = $factory;
     }
-
-    /** Set of script engine factories discovered. */
-    private $engineSpis = [];
-
-    /** Map of engine name to script engine factory. */
-    private $nameAssociations = [];
-
-    /** Map of script file extension to script engine factory. */
-    private $extensionAssociations = [];
-
-    /** Map of script script MIME type to script engine factory. */
-    //private $mimeTypeAssociations = [];
-
-    /** Global bindings associated with script engines created by this manager. */
-    private $globalScope;
 }
