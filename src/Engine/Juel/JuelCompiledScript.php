@@ -22,11 +22,10 @@ class JuelCompiledScript extends CompiledScript
 
     public function getEngine(): ScriptEngineInterface
     {
-        // Return outer class instance
         return $engine;
     }
 
-    public function eval(?BindingsInterface $ctx = null)
+    public function eval(BindingsInterface $ctx = null)
     {
         return $this->scope->evaluateExpression($this->valueExpression, $ctx);
     }

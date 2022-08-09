@@ -35,7 +35,7 @@ abstract class CompiledScript
      *
      * @throws ScriptException if an error occurs.
      */
-    public function eval(?BindingsInterface $bindings = null)
+    public function eval(BindingsInterface $bindings = null)
     {
         $ctxt = $this->getEngine()->getContext();
 

@@ -3,6 +3,7 @@
 namespace Script;
 
 use Script\Engine\Juel\JuelScriptEngineFactory;
+use Script\Engine\Lua\LuaScriptEngineFactory;
 
 class ScriptEngineManager
 {
@@ -42,7 +43,10 @@ class ScriptEngineManager
     {
         $factory = new JuelScriptEngineFactory();
         $this->engineSpis[] = $factory;
-        //register
+        $this->registerEngineName($factory->getEngineName(), $factory);
+
+        $factory = new LuaScriptEngineFactory();
+        $this->engineSpis[] = $factory;
         $this->registerEngineName($factory->getEngineName(), $factory);
     }
 

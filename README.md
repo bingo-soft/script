@@ -15,7 +15,7 @@ Install library, using Composer:
 composer require bingo-soft/script
 ```
 
-# Example 1
+# Example 1 (using Juel engine)
 
 ```
 $manager = new ScriptEngineManager();
@@ -23,7 +23,7 @@ $engine = $manager->getEngineByName("juel");
 echo $engine->eval('${1 + 2}'); //prints 3
 ```
 
-# Example 2
+# Example 2 (using Juel engine)
 
 ```
 $manager = new ScriptEngineManager();
@@ -48,8 +48,31 @@ echo $engine->eval('${simple.propFloat + 2}'); //prints 3.23
 echo $engine->eval('${simple.bar() + simple.foo()}'); //prints 34
 ```
 
+# Example 3. Calculate factorial using Lua module
+
+```
+$manager = new ScriptEngineManager();
+$engine = $manager->getEngineByName("lua");
+$engine->put('a', 5);
+
+echo  $engine->eval(<<<CODE
+                factorial = function ( n )
+                    if n == 1 then return 1
+                    else return n * factorial( n - 1 )
+                    end
+                end
+                return factorial(a)
+                CODE
+            ); //prints 120
+
+```
+
 # Running tests
 
 ```
 ./vendor/bin/phpunit ./tests
 ```
+
+# Dependencies
+
+Lua script engine depends on PHP [Lua](https://pecl.php.net/package/lua) module. The library is tested against 2.0.7 version.
