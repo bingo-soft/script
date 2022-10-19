@@ -15,6 +15,7 @@ use Juel\{
     ExpressionFactoryImpl,
     SimpleContext
 };
+use Util\Reflection\MetaObject;
 
 class JuelEngineTest extends TestCase
 {
@@ -62,5 +63,19 @@ class JuelEngineTest extends TestCase
 
         $this->assertEquals(3.23, $engine->eval('${simple.propFloat + 2}'));
         $this->assertEquals(34, $engine->eval('${simple.bar() + simple.foo()}'));
+    }
+
+    public function testOgnlSyntaxInJuelExpression(): void
+    {
+        $rich1 = new RichType();
+        $meta1 = new MetaObject($rich1);
+        $meta1->setValue("richType.richType.richField", 10);
+
+
+        $manager = new ScriptEngineManager();
+        $engine = $manager->getEngineByName("juel");
+        $engine->put("parameterObject", $meta1);
+
+        $this->assertEquals(21, $engine->eval('${richType.richType.richField + 11}'));
     }
 }

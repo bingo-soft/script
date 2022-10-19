@@ -27,6 +27,7 @@ use Script\{
     SimpleBindings,
     SimpleScriptContext
 };
+use Util\Reflection\MetaObject;
 
 class JuelScriptEngine extends AbstractScriptEngine
 {
@@ -71,10 +72,20 @@ class JuelScriptEngine extends AbstractScriptEngine
         return new SimpleBindings();
     }
 
+    public function put(string $key, $value): void
+    {
+        parent::put($key, $value);
+        if ($value instanceof MetaObject) {
+            $context = $this->createElContext($this->context);
+            $context->getELResolver()->setValue($context, null, $key, $value);
+        }
+    }
+
     public function evaluateExpression(ValueExpression $expr, ScriptContextInterface $ctx)
     {
         try {
-            return $expr->getValue($this->createElContext($ctx));
+            $context = $this->createElContext($ctx);
+            return $expr->getValue($context);
         } catch (ELException $elexp) {
             throw new ScriptException($elexp);
         }

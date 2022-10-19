@@ -107,7 +107,7 @@ abstract class AbstractScriptEngine implements ScriptEngineInterface
     {
         $nn = $this->getBindings(ScriptContextInterface::ENGINE_SCOPE);
         if ($nn !== null) {
-            $nn->put($key, $value);
+            $nn->put($key, $value);                      
         }
     }
 
