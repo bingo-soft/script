@@ -103,9 +103,9 @@ class JuelScriptEngineFactory implements ScriptEngineFactoryInterface
         $buf = "";
         if (count($statements) !== 0) {
             for ($i = 0; $i < count($statements); $i += 1) {
-                $buf .= "${";
+                $buf .= '${';
                 $buf .= $statements[$i];
-                $buf .= "} ";
+                $buf .= '} ';
             }
         }
         return $buf;
